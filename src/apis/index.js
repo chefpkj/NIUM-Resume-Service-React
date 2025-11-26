@@ -32,3 +32,18 @@ export const getResumeById = async (resumeId) => {
 
   return data.data;
 };
+
+export const getResumeByName = async (firstName, lastName) => {
+  const name = `${firstName} ${lastName}`;
+  const response = await fetch(
+    `${config.API_BASE_URL}/api/getResumeByName/${encodeURIComponent(name)}`
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message || "Failed to retrieve resume");
+  }
+
+  return data.data;
+};

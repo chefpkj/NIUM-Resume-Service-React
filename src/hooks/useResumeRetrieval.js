@@ -1,18 +1,23 @@
 import { useState } from "react";
-import { getResumeById } from "../apis";
+import { getResumeById, getResumeByName } from "../apis";
 
 export const useResumeRetrieval = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [resume, setResume] = useState(null);
 
-  const retrieve = async (resumeId) => {
+  const retrieve = async (searchData) => {
     setLoading(true);
     setError(null);
     setResume(null);
 
     try {
-      const data = await getResumeById(resumeId);
+      let data;
+      if (searchData.resumeId) {
+        data = await getResumeById(searchData.resumeId);
+      } else if (searchData.firstName && searchData.lastName) {
+        data = await getResumeByName(searchData.firstName, searchData.lastName);
+      }
       setResume(data);
       return data;
     } catch (err) {
