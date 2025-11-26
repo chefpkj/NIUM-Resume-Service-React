@@ -1,0 +1,9 @@
+node_modules
+dist
+.parcel-cache
+# TODO: need to prevent pushing env files to git
+# env/.dev.env
+# env/.prod.env
+.DS_Store
+.DS_Store?
+
